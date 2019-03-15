@@ -10,6 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +56,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
                 public boolean areItemsTheSame(
                         @NonNull CryptCard oldCard, @NonNull CryptCard newCard) {
                     // User properties may have changed if reloaded from the DB, but ID is fixed
-                    return oldCard.getName().equals(newCard.getName());
+                    return oldCard.getUid().equals(newCard.getUid());
                 }
 
                 @Override
@@ -62,7 +64,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
                         @NonNull CryptCard oldCard, @NonNull CryptCard newCard) {
                     // NOTE: if you use equals, your object must properly override Object#equals()
                     // Incorrectly returning false here will result in too many animations.
-                    return oldCard.getName().equals(newCard.getName());
+                    return oldCard.getUid().equals(newCard.getUid());
                 }
             };
 
@@ -107,6 +109,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
         public TextView txtCardExtraInformation;
         public TextView txtCardCost;
         public TextView txtCardGroup;
+        public TextView txtCardText;
         public long cardId;
         public ImageView imageViewCardImage;
         public String txtCardAdv;
@@ -120,6 +123,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
             txtCardExtraInformation = v.findViewById(R.id.txtCardExtraInformation);
             txtCardCost = v.findViewById(R.id.txtCardCost);
             txtCardGroup = v.findViewById(R.id.txtCardGroup);
+            txtCardText = v.findViewById(R.id.txtCardText);
             imageViewCardImage = v.findViewById(R.id.imageViewCardImage);
 
             v.setOnClickListener(this);
@@ -136,6 +140,8 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
             txtCardCost.setText(cryptCard.getCapacity());
             txtCardExtraInformation.setText(cryptCard.getDisciplines());
             txtCardGroup.setText(cryptCard.getGroup());
+
+            txtCardText.setText(cryptCard.getTextWithStyle());
             txtCardAdv = cryptCard.getAdvanced();
 
             Glide
@@ -153,7 +159,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
             txtCardCost.setText("");
             txtCardExtraInformation.setText("");
             txtCardGroup.setText("");
-
+            txtCardText.setText("");
         }
 
         @Override

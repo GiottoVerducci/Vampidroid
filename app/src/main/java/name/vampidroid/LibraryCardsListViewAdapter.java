@@ -38,7 +38,7 @@ public class LibraryCardsListViewAdapter extends PagedListAdapter<LibraryCard, L
                 public boolean areItemsTheSame(
                         @NonNull LibraryCard oldCard, @NonNull LibraryCard newCard) {
                     // User properties may have changed if reloaded from the DB, but ID is fixed
-                    return oldCard.getName().equals(newCard.getName());
+                    return oldCard.getUid().equals(newCard.getUid());
                 }
 
                 @Override
@@ -46,7 +46,7 @@ public class LibraryCardsListViewAdapter extends PagedListAdapter<LibraryCard, L
                         @NonNull LibraryCard oldCard, @NonNull LibraryCard newCard) {
                     // NOTE: if you use equals, your object must properly override Object#equals()
                     // Incorrectly returning false here will result in too many animations.
-                    return oldCard.getName().equals(newCard.getName());
+                    return oldCard.getUid().equals(newCard.getUid());
                 }
             };
 

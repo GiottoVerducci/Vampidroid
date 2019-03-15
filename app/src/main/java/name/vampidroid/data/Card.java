@@ -1,6 +1,8 @@
 package name.vampidroid.data;
 
 import android.arch.persistence.room.PrimaryKey;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 
 /**
  * Created by francisco on 11/09/17.
@@ -46,6 +48,34 @@ public abstract class Card {
 
     public String getText() {
         return text;
+    }
+
+    public SpannableStringBuilder getTextWithStyle()
+    {
+        String text = getText();
+
+        text = "*Camarilla:* Cool. *+1 strength.*";
+
+        SpannableStringBuilder str = new SpannableStringBuilder(text);
+
+
+        int startBold = -1;
+        for(int i = 0; i < str.length(); ++i) {
+            if(str.charAt(i) == '*'){
+                if(startBold >= 0) {
+                    str.delete(i, i+1);
+                    str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), startBold, i-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    startBold = -1;
+                }
+                else {
+                    startBold = i;
+                    str.delete(i, i+1);
+                }
+                --i;
+            }
+        }
+
+        return str;
     }
 
     public void setText(String text) {

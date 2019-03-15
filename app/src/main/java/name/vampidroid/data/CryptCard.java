@@ -1,6 +1,8 @@
 package name.vampidroid.data;
 
 import android.arch.persistence.room.Entity;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 
 /**
  * Created by FranciscoJunior on 17/03/2017.
@@ -38,5 +40,4 @@ public class CryptCard extends Card {
         return advanced.length() > 0;
 
     }
-
 }

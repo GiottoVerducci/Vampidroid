@@ -2,6 +2,8 @@ package name.vampidroid.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 
 /**
  * Created by francisco on 04/07/17.
@@ -48,5 +50,11 @@ public class LibraryCard extends Card {
 
     public void setConvictionCost(String convictionCost) {
         this.convictionCost = convictionCost;
+    }
+
+    public SpannableStringBuilder getTextWithStyle() {
+        SpannableStringBuilder str = new SpannableStringBuilder(getText());
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return str;
     }
 }
