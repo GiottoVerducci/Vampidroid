@@ -21,10 +21,12 @@ public class PreferenceRepository {
     public static final String KEY_PREF_USE_LOCAL_CARD_IMAGES_FOLDER = "pref_useLocalCardImagesFolder";
 
     public static final String KEY_PREF_SEARCH_CARD_TEXT = "pref_searchCardText";
+    public static final String KEY_PREF_CRYPT_TEXT_LINES_COUNT = "pref_cryptTextLinesCount";
     public static final String KEY_PREF_SHOW_CARDS_COUNT = "pref_showCardsCountTabHeader";
 
 
     private final Preference<Boolean> searchTextCard;
+    private final Preference<Integer> cryptTextLinesCount;
     private final Preference<String> cardImagesFolder;
     private final Preference<Boolean> showCardsCount;
     private final Preference<Boolean> useLocalCardsPathSwitch;
@@ -34,6 +36,7 @@ public class PreferenceRepository {
     public PreferenceRepository(RxSharedPreferences sharedPreferences) {
 
         searchTextCard = sharedPreferences.getBoolean(KEY_PREF_SEARCH_CARD_TEXT, false);
+        cryptTextLinesCount = sharedPreferences.getInteger(KEY_PREF_CRYPT_TEXT_LINES_COUNT, 1);
         cardImagesFolder = sharedPreferences.getString(KEY_PREF_CARD_IMAGES_FOLDER, Environment.getExternalStorageDirectory().getAbsolutePath());
         remoteCardImagesFolder = sharedPreferences.getString(KEY_PREF_REMOTE_CARD_IMAGES_FOLDER, "");
         showCardsCount = sharedPreferences.getBoolean(KEY_PREF_SHOW_CARDS_COUNT, false);
@@ -46,6 +49,10 @@ public class PreferenceRepository {
         return searchTextCard.asObservable();
     }
 
+    public Observable<Integer> getCryptTextLinesCountObservable() {
+
+        return cryptTextLinesCount.asObservable();
+    }
 
     public Observable<String> getCardImagesFolderObservable() {
 

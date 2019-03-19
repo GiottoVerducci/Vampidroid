@@ -35,7 +35,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
         implements FastScroller.SectionIndexer {
 
 
-
+    public Integer cryptTextLinesCount;
 
     public CryptCardsListViewAdapter() {
         super(DIFF_CALLBACK);
@@ -77,7 +77,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.crypt_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        CryptCardsListViewAdapter.ViewHolder vh = new CryptCardsListViewAdapter.ViewHolder(v);
+        CryptCardsListViewAdapter.ViewHolder vh = new CryptCardsListViewAdapter.ViewHolder(v, cryptTextLinesCount);
         return vh;
     }
 
@@ -114,10 +114,12 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
         public ImageView imageViewCardImage;
         public String txtCardAdv;
 
+        private Integer cryptTextLinesCount;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, Integer cryptTextLinesCount) {
             super(v);
 
+            this.cryptTextLinesCount = cryptTextLinesCount;
             txtCardClan = v.findViewById(R.id.txtCardClan);
             txtCardName = v.findViewById(R.id.txtCardName);
             txtCardExtraInformation = v.findViewById(R.id.txtCardExtraInformation);
@@ -142,6 +144,7 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
             txtCardGroup.setText(cryptCard.getGroup());
 
             txtCardText.setText(cryptCard.getTextWithStyle());
+            txtCardText.setMaxLines(cryptTextLinesCount);
             txtCardAdv = cryptCard.getAdvanced();
 
             Glide
@@ -151,6 +154,8 @@ public class CryptCardsListViewAdapter extends PagedListAdapter<CryptCard, Crypt
                     .placeholder(R.drawable.gold_back)
                     .into(imageViewCardImage);
         }
+
+
 
         public void clear() {
             cardId = 0;

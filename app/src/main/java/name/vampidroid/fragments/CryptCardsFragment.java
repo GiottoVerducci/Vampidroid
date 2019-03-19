@@ -3,9 +3,12 @@ package name.vampidroid.fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,10 +16,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.f2prateek.rx.preferences2.RxSharedPreferences;
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import name.vampidroid.CardsViewModel;
 import name.vampidroid.CryptCardsListViewAdapter;
 import name.vampidroid.R;
 import name.vampidroid.data.CryptCard;
+import name.vampidroid.data.source.PreferenceRepository;
 import name.vampidroid.utils.CardsEvent;
 
 public class CryptCardsFragment extends ViewLifecycleFragment {
@@ -29,6 +37,16 @@ public class CryptCardsFragment extends ViewLifecycleFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        RxSharedPreferences rxPreferences = RxSharedPreferences.create(preferences);
+        PreferenceRepository preferenceRepository = new PreferenceRepository(rxPreferences);
+
+        preferenceRepository
+            .getCryptTextLinesCountObservable()
+            .subscribe(value -> {
+                cryptCardsListViewAdapter.cryptTextLinesCount = value;
+                cryptCardsListViewAdapter.notifyDataSetChanged();
+            });
 
         CardsViewModel cardsViewModel = ViewModelProviders.of(this.getActivity()).get(CardsViewModel.class);
 

@@ -10,6 +10,18 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Card display">
+        <SeekBarPreference
+            android:key="@string/pref_crypt_text_lines_count"
+            android:title="Number of lines displayed for crypt cards"
+            android:summary="Choose the number of lines of card text to display in the list"
+            android:min="1"
+            android:max="5"
+            android:defaultValue = "1">
+        </SeekBarPreference>
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="Card images Options">
 
         <SwitchPreferenceCompat

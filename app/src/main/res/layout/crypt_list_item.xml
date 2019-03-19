@@ -21,7 +21,8 @@
         app:layout_constraintLeft_toRightOf="@+id/imageViewCardImage"
         app:layout_constraintRight_toLeftOf="@+id/txtCardClan"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Regina Giovanni, The Right Hand of Augustus" />
+        tools:text="Regina Giovanni, The Right Hand of Augustus"
+    />
 
     <TextView
         android:id="@+id/txtCardClan"
@@ -76,12 +77,14 @@
         style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:minLines="1"
+        android:ellipsize="end"
         app:fontFamily="@font/roboto_condensed_regular"
         app:layout_constraintLeft_toLeftOf="@+id/imageViewCardImage"
         app:layout_constraintRight_toLeftOf="@+id/txtCapacityLabel"
         app:layout_constraintTop_toBottomOf="@+id/txtCardExtraInformation"
-        tools:text="Independent. 2 votes (titled): Allies and retainers cost Regina 1 fewer blood or pool." />
+        tools:text="Independent. 2 votes (titled): Allies and retainers cost Regina 1 fewer blood or pool. She can enter combat with any minion as a (D) action." />
 
     <TextView
         android:id="@+id/txtCapacityLabel"
@@ -105,7 +108,7 @@
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
         app:fontFamily="@font/roboto_condensed_regular"
-        app:layout_constraintBottom_toBottomOf="@+id/txtCardText"
+        app:layout_constraintTop_toTopOf="@+id/txtCardText"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="10" />
 

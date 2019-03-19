@@ -34,6 +34,8 @@ public class CardsViewModel extends AndroidViewModel {
 
     private int libraryCardsCount;
 
+    private int cryptTextLinesCount;
+
     private CompositeDisposable subscriptions = new CompositeDisposable();
 
     private boolean shouldSearchTextCard;
@@ -84,6 +86,17 @@ public class CardsViewModel extends AndroidViewModel {
 
         );
 
+        subscriptions.add(preferenceRepository
+                .getCryptTextLinesCountObservable()
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer count) throws Exception {
+                        cryptTextLinesCount = count;
+                        refreshCardsListingLiveData.postValue(new CardsEvent());
+                    }
+                })
+
+        );
 
         // Subscribe to know when the show cards count preference is updated.
         // First update the flag to show cards count

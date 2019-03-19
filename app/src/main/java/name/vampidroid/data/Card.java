@@ -54,10 +54,7 @@ public abstract class Card {
     {
         String text = getText();
 
-        text = "*Camarilla:* Cool. *+1 strength.*";
-
         SpannableStringBuilder str = new SpannableStringBuilder(text);
-
 
         int startBold = -1;
         for(int i = 0; i < str.length(); ++i) {
